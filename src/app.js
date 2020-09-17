@@ -22,7 +22,9 @@ app.get('/', function (req, res) {
 app.get('/gebruikers', async (req, res) => {
     try{
         const gebruiker = await Gebruiker.find();
-        console.log(req);
+        // res.send(response) stuurt het resultaat terug, niet zichtbaar in console, wel in Postman
+        // console.log plaatst het resultaat in de console
+        res.send(gebruiker);
     }
     catch(err){
         console.log(err);
