@@ -8,6 +8,7 @@ const Gebruiker = require('./models/Gebruiker');
 require('dotenv').config();
 
 const app = express();
+const router = require('./routes');
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -15,11 +16,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
+app.use(express.static('public'));
+
+app.use(router);
+
 app.get('/', function (req, res) {
     console.log('Winkel');
 });
 
-app.get('/gebruikers', async (req, res) => {
+/*app.get('/gebruikers', async (req, res) => {
     try{
         const gebruiker = await Gebruiker.find();
         // res.send(response) stuurt het resultaat terug, niet zichtbaar in console, wel in Postman
@@ -29,7 +34,7 @@ app.get('/gebruikers', async (req, res) => {
     catch(err){
         console.log(err);
     }
-});
+});*/
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true })
     .then(() => {
